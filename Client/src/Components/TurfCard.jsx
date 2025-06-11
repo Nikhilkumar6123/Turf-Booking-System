@@ -1,39 +1,127 @@
-// components/TurfCard.jsx
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
-export default function TurfCard({ title, location, price, description, image }) {
+const turfData = [
+  {
+    image:
+      "https://admin.groundbox.in/vendor_img/images/06-05-2025/060525095055am-truf-zone.webp",
+    title: "Truf Zone Arena",
+    price: 500,
+    reviews: 12,
+  },
+  {
+    image:
+      "https://admin.groundbox.in/vendor_img/images/28-04-2025/280425094746am-logo.jpg",
+    title: "PlayUp Jaipur",
+    price: 400,
+    reviews: 8,
+  },
+  {
+    image:
+      "https://admin.groundbox.in/vendor_img/images/06-06-2025/060625054948am-WhatsApp-Image-2025-05-29-at-10.40.34_462f4747.jpg",
+    title: "One Life Arena",
+    price: 750,
+    reviews: 6,
+  },
+  {
+    image:
+      "https://admin.groundbox.in/vendor_img/images/06-05-2025/060525101251am-speed-truf.webp",
+    title: "Googly Box",
+    price: 1100,
+    reviews: 20,
+  },
+  {
+    image:
+      "https://admin.groundbox.in/vendor_img/images/09-06-2025/090625061039am-1111.jpg",
+    title: "Champion Turf",
+    price: 680,
+    reviews: 9,
+  },
+  {
+    image:
+      "https://admin.groundbox.in/vendor_img/images/07-05-2025/070525075832am-ddddddddddddddddd.jpg",
+    title: "Green Field",
+    price: 550,
+    reviews: 15,
+  },
+  {
+    image:
+      "https://admin.groundbox.in/vendor_img/images/06-06-2025/060625111610am-11.jpg",
+    title: "Urban Arena",
+    price: 620,
+    reviews: 18,
+  },
+  {
+    image:
+      "https://admin.groundbox.in/vendor_img/images/14-05-2025/140525104401am-sc.jpg",
+    title: "Ground Master",
+    price: 900,
+    reviews: 22,
+  },
+  {
+    image:
+      "https://admin.groundbox.in/vendor_img/images/24-05-2025/240525065923am-fds.jpg",
+    title: "Sportzy Turf",
+    price: 480,
+    reviews: 10,
+  },
+  {
+    image:
+      "https://admin.groundbox.in/vendor_img/images/23-04-2025/230425061157am-IMG_1156.PNG",
+    title: "Elite Sports",
+    price: 790,
+    reviews: 11,
+  },
+];
+
+const TurfCard = () => {
+  const scrollRef = useRef(null);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (scrollRef.current) {
+        scrollRef.current.scrollBy({ left: 280, behavior: "smooth" });
+      }
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div className="w-80 bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition duration-300 flex flex-col">
-      {/* 📸 Turf Image */}
-      <div className="h-40 w-full overflow-hidden">
-        <img
-          src={image}
-          alt={title}
-          className="w-full h-full object-cover"
-        />
-      </div>
-
-      {/* 📝 Content Section */}
-      <div className="p-4 flex flex-col justify-between h-60">
-        <div>
-          <h2 className="text-xl font-bold text-gray-800">{title}</h2>
-          <p className="text-sm text-gray-500">{location}</p>
-        </div>
-
-        <div className="overflow-auto h-20 mt-2">
-          <p className="text-sm text-gray-700">
-            {description}
-          </p>
-        </div>
-
-        {/* 💰 Price + Button */}
-        <div className="mt-2 flex justify-between items-center">
-          <span className="text-green-700 font-semibold text-md">₹{price}/hr</span>
-          <button className="bg-green-700 text-white px-4 py-1 rounded hover:bg-green-800 transition text-sm">
-            Book Now
-          </button>
-        </div>
+    <div
+      className="w-full overflow-x-auto px-4 py-8 scrollbar-hide"
+      ref={scrollRef}
+    >
+      <div className="flex gap-6 min-w-max">
+        {turfData.map((turf, index) => (
+          <div
+            key={index}
+            className="min-w-[260px] bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-3xl shadow-2xl overflow-hidden border border-gray-200 hover:scale-105 transition-transform duration-300"
+          >
+            <img
+              src={turf.image}
+              alt={turf.title}
+              className="w-full h-48 object-cover rounded-t-3xl"
+            />
+            <div className="p-4 space-y-2">
+              <h2 className="text-lg font-bold text-gray-800 truncate">
+                {turf.title}
+              </h2>
+              <div className="flex items-center justify-between text-sm text-gray-600">
+                <span>Rating</span>
+                <span className="text-green-600 font-semibold">
+                  ₹{turf.price}
+                </span>
+              </div>
+              <div className="flex items-center justify-between text-xs text-gray-500">
+                <div className="text-yellow-400">★★★★★</div>
+                <span>({turf.reviews})</span>
+                <span className="text-blue-600 ml-auto">Onwards</span>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
-}
+};
+
+export default TurfCard;
