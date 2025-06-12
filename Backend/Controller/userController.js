@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const secretKey = "kajdakdoermjsfsfskfjswoeidm";
 
 exports.createUser = async (req,res)=>{
-    const { name, email, phone, password, otp, validTime } = req.body;
+    const { name, email, phone, password, otp, validTime,role } = req.body;
     
     //checking is data is not empty
     if(!(name && email && phone && password)){
@@ -36,7 +36,7 @@ exports.createUser = async (req,res)=>{
     const hash = bcrypt.hashSync(password,salt)
     
 
-    const data = {name,email,phone,password:hash,otp:newOtp,validTime:otpTime}
+    const data = {name,email,phone,role,password:hash,otp:newOtp,validTime:otpTime}
 
     const newUser = new User(data)
     await newUser.save()
@@ -60,9 +60,10 @@ if(!alreadyEmail){
 
 const dbpassword = alreadyEmail.password
 const dbotp = alreadyEmail.otp
-console.log(typeof(dbotp));
-console.log(typeof(otp));
+
 const otpTime = alreadyEmail.validTime
+
+const data = alreadyEmail
 
 const match = await bcrypt.compare(password,dbpassword)
 
@@ -84,7 +85,7 @@ if(otp===dbotp){
 
     return res
       .status(200)
-      .json({ msg: "otp is matched,User login successfully" ,token});
+      .json({ msg: "otp is matched,User login successfully" ,data,token});
 }
 else{
     return res
