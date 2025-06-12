@@ -31,7 +31,7 @@ const Login = () => {
                 const { data } = await axios.post(backendurl + '/api/login', { email, password })
                 if (data.success) {
                     setIsLoggedin(true)
-                    navigate('/')git 
+                    navigate('/')git
                 } else {
                     toast.error(data.message)
                 }
