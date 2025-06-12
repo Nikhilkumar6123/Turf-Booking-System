@@ -2,18 +2,23 @@ const express = require("express")
 
 const mongoose = require("mongoose")
 
-const PORT = 4000
+const PORT = 5000
 
 const Router = require("./Routes/userRoutes")
 
 const cors = require("cors")
 
 
-mongoose.connect("mongodb://localhost:27017/testdb");
+mongoose.connect("mongodb+srv://udawat:1234@udawat.1cdje.mongodb.net/Turf-Booking-System");
 
 const app = express()
 
-app.use(cors())
+app.use(
+  cors({
+    origin: "http://localhost:5173", // ✅ your frontend origin
+    credentials: true, // ✅ allow cookies/auth headers
+  })
+);
 
 app.use(express.json())
 
