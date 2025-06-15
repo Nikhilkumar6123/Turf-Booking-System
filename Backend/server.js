@@ -4,7 +4,9 @@ const mongoose = require("mongoose")
 
 const PORT = 5000
 
-const Router = require("./Routes/userRoutes")
+const userRouter = require("./Routes/userRoutes")
+const adminRouter = require("./Routes/adminRoute")
+
 
 const cors = require("cors")
 
@@ -24,7 +26,8 @@ app.use(express.json())
 
 app.use(express.urlencoded())
 
-app.use("/user",Router)
+app.use("/user",userRouter)
+app.use("/admin",adminRouter)
 
 app.listen(PORT , ()=>{
     console.log(`Server is running on ${PORT} Port`)

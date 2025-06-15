@@ -7,6 +7,7 @@ import HeroCarousel from "../Components/HeroCarousel";
 
 
 const Homepage = () => {
+  
   return (
    <>
    <Navbar/>
