@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from "react";
+import axios from "axios";
+import React, { useEffect, useRef, useState } from "react";
 
 const turfData = [
   {
@@ -73,8 +74,18 @@ const turfData = [
   },
 ];
 
+
+
 const TurfCard = () => {
   const scrollRef = useRef(null);
+  const [turfs, setTurfs] = useState([]);
+
+  useEffect(() => {
+    // Fetch turfs from backend
+    axios.get("http://localhost:5000/admin/getturf").then((res) => {
+      setTurfs(res.data.response);
+    });
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -91,35 +102,33 @@ const TurfCard = () => {
       ref={scrollRef}
     >
       <div className="flex gap-6 min-w-max">
-        {turfData.map((turf, index) => (
+      {turfs.map((turf,index) => (
           <div
             key={index}
             className="min-w-[260px] bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-3xl shadow-2xl overflow-hidden border border-gray-200 hover:scale-105 transition-transform duration-300"
           >
             <img
-              src={turf.image}
-              alt={turf.title}
+              src={turfData[index].image}
+              alt="turf image"
               className="w-full h-48 object-cover rounded-t-3xl"
             />
             <div className="p-4 space-y-2">
               <h2 className="text-lg font-bold text-gray-800 truncate">
-                {turf.title}
+                {turf.turfName}
               </h2>
               <div className="flex items-center justify-between text-sm text-gray-600">
                 <span>Rating</span>
-                <span className="text-green-600 font-semibold">
-                  ₹{turf.price}
-                </span>
+                <span className="text-green-600 font-semibold">₹{turf.price}</span>
               </div>
               <div className="flex items-center justify-between text-xs text-gray-500">
                 <div className="text-yellow-400">★★★★★</div>
-                <span>({turf.reviews})</span>
+                <span>Nice Turf</span>
                 <span className="text-blue-600 ml-auto">Onwards</span>
               </div>
             </div>
           </div>
-        ))}
-      </div>
+      ))}
+        </div>
     </div>
   );
 };

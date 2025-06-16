@@ -15,10 +15,18 @@ const Navbar = () => {
         </h1>
       </div>
       <ul className="flex gap-10 text-green-500 font-medium">
-        <li>Home</li>
-        <li>Find Ground</li>
-        <li>Categories</li>
-        <li>Contact</li>
+        <li className="cursor-pointer hover:underline">
+          <Link to={"/"}>Home</Link>
+        </li>
+        <li className="cursor-pointer hover:underline">
+          <Link to={"/grounds"}>Find Ground</Link>
+        </li>
+        <li className="cursor-pointer hover:underline">
+          <Link to={"/about"}>About Us</Link>
+        </li>
+        <li className="cursor-pointer hover:underline">
+          <Link to={"/contact"}>Contact</Link>
+        </li>
       </ul>
       <div className="flex items-center gap-4">
         <div className="bg-green-50 rounded-full px-4 py-2 flex items-center gap-2 text-green-600 text-sm">
